@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Laboratorio 01A - Fundamentos Web</title>
+  <style>
+    :root {
+      --color-primario: #0066cc;
+      --color-secundario: #003366;
+      --color-fondo: #f5f5f5;
+      --color-texto: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--color-fondo);
+      color: var(--color-texto);
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: var(--color-primario);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      background-color: var(--color-secundario);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 10px;
+    }
+
+    nav a {
+      color: white;
+      margin: 10px 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      gap: 30px;
+    }
+
+    section {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    h2 {
+      color: var(--color-primario);
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+
+    footer {
+      background-color: var(--color-primario);
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+
+    @media (min-width: 768px) {
+      main {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Laboratorio 01A</h1>
+    <p>Fundamentos de Tecnologías Web y Visual Studio Code</p>
+  </header>
+
+  <nav>
+    <a href="#temas">Temas Aprendidos</a>
+    <a href="#ejercicios">Ejercicios</a>
+    <a href="#reflexion">Reflexión</a>
+  </nav>
+
+  <main>
+    <section id="temas">
+      <h2>📘 Temas Aprendidos</h2>
+      <p><strong>Fundamentos de tecnologías web:</strong> Son los conceptos básicos que explican cómo funciona Internet y cómo se construyen soluciones web.</p>
+      
+      <p><strong>Soluciones web:</strong></p>
+      <ul>
+        <li><strong>Sistema web:</strong> conjunto completo que integra base de datos, servidor y aplicación.</li>
+        <li><strong>Aplicación web:</strong> software accesible desde un navegador (como Gmail o una tienda online).</li>
+        <li><strong>Sitio web:</strong> conjunto de páginas web relacionadas.</li>
+        <li><strong>Página web:</strong> documento individual dentro de un sitio.</li>
+      </ul>
+
+      <p><strong>Tecnologías web:</strong></p>
+      <ul>
+        <li><strong>Básicas:</strong> HTML, CSS, JS</li>
+        <li><strong>Lenguajes:</strong> PHP, Python, JavaScript, SQL</li>
+        <li><strong>Gráficos:</strong> SVG, Canvas, imágenes optimizadas</li>
+      </ul>
+
+      <p><strong>Funcionamiento de la web:</strong></p>
+      <ul>
+        <li><strong>DNS:</strong> traduce nombres de dominio en direcciones IP</li>
+        <li><strong>TCP/IP:</strong> protocolo que permite el envío de datos por la red</li>
+        <li><strong>HTTP:</strong> protocolo que permite la comunicación entre cliente y servidor</li>
+      </ul>
+
+      <p><strong>Roles en el desarrollo web:</strong></p>
+      <ul>
+        <li><strong>Frontend:</strong> diseña e implementa la interfaz del usuario</li>
+        <li><strong>Backend:</strong> trabaja con la lógica del servidor, bases de datos</li>
+        <li><strong>Fullstack:</strong> combina frontend y backend</li>
+      </ul>
+
+      <p><strong>Visual Studio Code:</strong> Editor de código muy completo. Soporta múltiples lenguajes, tiene extensiones útiles y permite trabajar con atajos de teclado.</p>
+    </section>
+
+    <section id="ejercicios">
+      <h2>🧪 Ejercicios de Laboratorio - Resultados</h2>
+      <ul>
+        <li>✔ Exploré los elementos de la interfaz de VSC: panel lateral, terminal, barra de estado, minimapa.</li>
+        <li>✔ Instalé extensiones útiles: Live Server, Prettier, HTML CSS Support.</li>
+        <li>✔ Practiqué atajos de teclado: 
+          <ul>
+            <li><kbd>Ctrl + Shift + P</kbd>: Paleta de comandos</li>
+            <li><kbd>Alt + Shift + ↓</kbd>: Duplicar línea</li>
+            <li><kbd>Ctrl + /</kbd>: Comentar línea</li>
+          </ul>
+        </li>
+        <li>✔ Realicé una prueba de diagnóstico sobre conocimientos web básicos.</li>
+      </ul>
+    </section>
+
+    <section id="reflexion">
+      <h2>💡 Reflexión Personal</h2>
+      <p>En esta sesión aprendí los fundamentos que sostienen el desarrollo web y cómo se interconectan los diferentes conceptos y tecnologías para construir soluciones modernas.</p>
+      <p>La actividad del laboratorio me permitió familiarizarme con Visual Studio Code y reconocer su potencial como herramienta profesional. Aprendí a instalar extensiones, personalizar el entorno de desarrollo y utilizar atajos que aceleran la codificación.</p>
+      <p>Aprendí de manera práctica, manipulando la herramienta, realizando búsquedas, explorando opciones y cometiendo errores que luego corregí con ayuda del instructor o la documentación oficial.</p>
+    </section>
+  </main>
+
+  <footer>
+    Laboratorio 01A | Elaborado por Samira
+  </footer>
+
+</body>
+</html>

