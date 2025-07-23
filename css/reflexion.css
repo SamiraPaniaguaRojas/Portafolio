@@ -1,0 +1,191 @@
+/* Page Header */
+.page-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 120px 0 60px;
+    text-align: center;
+    color: white;
+  }
+  
+  .page-header h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .page-header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+  }
+  
+  /* Content */
+  .reflection-content {
+    padding: 80px 0;
+    background: #f8f9fa;
+  }
+  
+  /* Intro Section */
+  .intro-section {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin-bottom: 60px;
+    text-align: center;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .intro-section h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 24px;
+  }
+  
+  .intro-section p {
+    font-size: 1.125rem;
+    color: #5a6c7d;
+    line-height: 1.7;
+  }
+  
+  /* Learning Process Section */
+  .learning-process-section {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin-bottom: 40px;
+    border-left: 5px solid #4caf50;
+  }
+  
+  .learning-process-section h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 24px;
+  }
+  
+  .learning-content p {
+    color: #5a6c7d;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+  
+  .learning-content p:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* How I Learned Section */
+  .how-learned-section {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin-bottom: 40px;
+    border-left: 5px solid #2196f3;
+  }
+  
+  .how-learned-section h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 24px;
+  }
+  
+  .learning-method p {
+    color: #5a6c7d;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+  
+  .learning-method p:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Weekly Evolution */
+  .weekly-evolution {
+    margin-bottom: 60px;
+  }
+  
+  .weekly-evolution > h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 40px;
+  }
+  
+  .week-reflection {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 20px;
+  }
+  
+  .week-1 {
+    border-left: 5px solid #4caf50;
+  }
+  
+  .week-2 {
+    border-left: 5px solid #2196f3;
+  }
+  
+  .week-3 {
+    border-left: 5px solid #9c27b0;
+  }
+  
+  .week-4 {
+    border-left: 5px solid #ff9800;
+  }
+  
+  .week-5 {
+    border-left: 5px solid #f44336;
+  }
+  
+  .week-6 {
+    border-left: 5px solid #00bcd4;
+  }
+  
+  .week-7 {
+    border-left: 5px solid #795548;
+  }
+  
+  .week-reflection h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 16px;
+  }
+  
+  .week-content p {
+    color: #5a6c7d;
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+  
+    .learning-process-section,
+    .how-learned-section,
+    .intro-section,
+    .week-reflection {
+      padding: 24px 20px;
+    }
+  
+    .weekly-evolution > h2 {
+      font-size: 2rem;
+    }
+  
+    .learning-process-section h2,
+    .how-learned-section h2 {
+      font-size: 1.75rem;
+    }
+  }
+  
