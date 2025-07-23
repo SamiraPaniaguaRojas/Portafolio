@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 12 - Desarrollo Web Backend</title>
+    <style>
+        /* --- Estilos CSS --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            color: #333;
+            scroll-behavior: smooth; /* Desplazamiento suave para el "scroll to top" */
+        }
+
+        header {
+            background: #2c3e50;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Transición al pasar el ratón */
+            cursor: pointer;
+        }
+
+        header:hover {
+            background-color: #34495e;
+            transform: scale(1.01); /* Pequeño efecto de escala al pasar el ratón */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            background-color: #ffffff; /* Fondo blanco para secciones */
+            border-radius: 5px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease; /* Efecto de levitar */
+        }
+
+        section:hover {
+            transform: translateY(-5px); /* Levanta un poco la sección */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Sombra más pronunciada */
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex; /* Para alinear el botón de toggle */
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h3 {
+            color: #34495e;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        ul {
+            list-style: disc inside;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            cursor: pointer; /* Cursor de puntero para indicar interactividad */
+            transition: background-color 0.2s ease; /* Transición para resaltar */
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        li:hover {
+            background-color: #e9f5ff; /* Resaltado suave al pasar el ratón */
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            cursor: pointer; /* Cursor de puntero para indicar interactividad */
+            transition: background-color 0.2s ease; /* Transición para resaltar */
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        p:hover {
+            background-color: #e9f5ff; /* Resaltado suave al pasar el ratón */
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .content {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            border-radius: 4px;
+            max-height: 0; /* Por defecto oculto */
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.7s ease-in-out, opacity 0.5s ease-in-out;
+            transform: translateY(-10px); /* Pequeño efecto al aparecer */
+        }
+
+        .content.expanded {
+            max-height: 2000px; /* Suficientemente grande para todo el contenido */
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toggle-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .toggle-button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        .highlighted {
+            background-color: #ffeb3b; /* Amarillo vibrante para resaltar */
+            border-left: 3px solid #fbc02d;
+            padding-left: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            background: #2c3e50;
+            color: #fff;
+            font-size: 0.9rem;
+            border-radius: 0 0 8px 8px;
+        }
+
+        #scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            opacity: 0; /* Oculto por defecto */
+            pointer-events: none; /* No interactuable cuando está oculto */
+        }
+
+        #scroll-to-top.show {
+            opacity: 1;
+            pointer-events: auto; /* Interactuable cuando está visible */
+            transform: translateY(0);
+        }
+
+        #scroll-to-top:hover {
+            background-color: #2980b9;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Semana 12</h1>
+    </header>
+    <main>
+        <section id="temas-aprendidos">
+            <h2>Temas Aprendidos<button class="toggle-button" data-target="temas-content">+ Mostrar</button></h2>
+            <div class="content" id="temas-content">
+                <h3>Gestión de Formularios</h3>
+                <p><strong>Definiciones:</strong></p>
+                <ul>
+                    <li><strong>Creación de Formularios:</strong> En Django, los formularios son la forma principal de interactuar con los datos enviados por el usuario. Permiten definir la estructura de los campos de entrada, como texto, números, fechas, etc., y se utilizan para recopilar información de los usuarios.</li>
+                    <li><strong>Plantilla de un Formulario:</strong> Es la representación visual de un formulario en el HTML. Django facilita la renderización de formularios en las plantillas, permitiendo controlar cómo se muestran los campos y los errores.</li>
+                    <li><strong>Validación y Sanitización de Datos:</strong> La validación es el proceso de asegurar que los datos ingresados por el usuario cumplen con ciertos criterios (ej. un email tiene formato correcto). La sanitización es la limpieza de datos para prevenir inyecciones de código malicioso o formatos incorrectos antes de guardarlos. Django ofrece un sistema robusto de validadores incorporados y permite crear validadores personalizados.</li>
+                </ul>
+                <p><strong>Procedimiento:</strong> Para crear y gestionar formularios en Django, primero definimos una clase `Form` en `forms.py` con los campos necesarios. Luego, en la vista, instanciamos el formulario, lo procesamos con los datos del `request` (si es un POST) y verificamos su validez (`is_valid()`). Finalmente, pasamos el formulario al contexto de la plantilla para que se renderice. Para la validación y sanitización, Django se encarga automáticamente al usar sus campos de formulario, pero podemos añadir lógica personalizada con métodos como `clean_field()` o `clean()`. </p>
+
+                <h3>Django Admin</h3>
+                <p><strong>Definiciones:</strong></p>
+                <ul>
+                    <li><strong>Introducción a Django Admin y Personalización Básica:</strong> Django Admin es una interfaz de administración generada automáticamente por Django que permite a los usuarios (generalmente administradores) gestionar los datos de la aplicación (crear, leer, actualizar, eliminar registros) sin necesidad de escribir código adicional para la interfaz.</li>
+                    <li><strong>Personalización y Registro de Modelos:</strong> Podemos personalizar cómo se muestran los modelos en el panel de administración. Esto incluye definir qué campos se muestran en la lista, qué campos son editables, añadir filtros, búsquedas y más. Para que un modelo aparezca en el admin, debe ser registrado en `admin.py`.</li>
+                    <li><strong>Creación de Campos Calculados y Formularios Personalizados:</strong> Es posible añadir campos que no existen directamente en el modelo pero que se calculan dinámicamente, o usar formularios personalizados para la creación/edición de modelos en el admin, lo que permite una mayor flexibilidad en la validación o la lógica de negocio.</li>
+                </ul>
+                <p><strong>Procedimiento:</strong> Para usar Django Admin, importamos `admin` y registramos nuestros modelos en `admin.py` usando `admin.site.register(MiModelo)`. Para personalizaciones, creamos una clase `MiModeloAdmin` que hereda de `admin.ModelAdmin` y definimos atributos como `list_display`, `list_filter`, `search_fields`, entre otros, y luego registramos `MiModelo` con `MiModeloAdmin`. </p>
+
+                <h3>Middleware y Sesiones</h3>
+                <p><strong>Definiciones:</strong></p>
+                <ul>
+                    <li><strong>Middleware:</strong> Son componentes de software que se interponen en el ciclo de solicitud/respuesta de Django. Permiten procesar solicitudes entrantes antes de que lleguen a la vista y procesar respuestas salientes antes de que se envíen al cliente. Son ideales para tareas como autenticación, gestión de sesiones, manejo de errores, compresión de contenido, etc.</li>
+                    <li><strong>Manejo de Sesiones:</strong> Las sesiones permiten almacenar información específica del usuario entre múltiples solicitudes HTTP. Django proporciona un sistema de sesiones basado en cookies que almacena un ID de sesión en el navegador del usuario, y los datos de la sesión se guardan en el servidor (base de datos, caché, sistema de archivos).</li>
+                    <li><strong>Autenticación y Autorización:</strong> La autenticación es el proceso de verificar la identidad de un usuario (¿quién eres?). La autorización es el proceso de determinar qué acciones puede realizar un usuario autenticado (¿qué puedes hacer?). Django incluye un robusto sistema de autenticación y autorización con modelos de usuario, grupos, permisos y vistas predefinidas.</li>
+                </ul>
+                <p><strong>Procedimiento:</strong> Los **Middleware** se activan añadiéndolos a la lista `MIDDLEWARE` en `settings.py`. Cada middleware tiene métodos específicos que se ejecutan en diferentes fases del ciclo de solicitud/respuesta. El **Manejo de Sesiones** se activa por defecto con el `SessionMiddleware`. Podemos acceder y modificar los datos de la sesión a través de `request.session` en nuestras vistas. Para **Autenticación y Autorización**, Django nos provee de vistas y formularios para `login`, `logout` y `registro`, así como decoradores (`@login_required`) y mixins para proteger vistas basadas en clase.</p>
+            </div>
+        </section>
+
+        <section id="ejercicios-laboratorio">
+            <h2>Ejercicios de Laboratorio <button class="toggle-button" data-target="laboratorio-content">+ Mostrar</button></h2>
+            <div class="content" id="laboratorio-content">
+                <h3>Artículo: A novel approach for handling missing data to enhance network intrusion detection system</h3>
+                <p>Este laboratorio se basó en el análisis y la aplicación de conceptos relacionados con el manejo de datos faltantes para mejorar los sistemas de detección de intrusiones en redes.</p>
+                <p>Puedes acceder al artículo original aquí: <a href="https://www.sciencedirect.com/science/article/pii/S2772918424000298" target="_blank">A novel approach for handling missing data to enhance network intrusion detection system</a></p>
+                <p><strong>Descripción de la Exposición y Conceptos Clave:</strong></p>
+                <ul>
+                    <li>El artículo propone una metodología innovadora para abordar el problema de los **datos faltantes** en conjuntos de datos utilizados para entrenar sistemas de detección de intrusiones (IDS).</li>
+                    <li>Se exploraron diferentes técnicas de **imputación de datos**, es decir, cómo rellenar los valores ausentes de manera efectiva para no degradar el rendimiento del IDS.</li>
+                    <li>Se destacó la importancia de un preprocesamiento de datos robusto para mejorar la **precisión y la robustez** de los modelos de detección.</li>
+                    <li>Se discutieron las **implicaciones prácticas** de los datos faltantes en el contexto de la ciberseguridad y cómo pueden afectar la capacidad de un IDS para identificar amenazas.</li>
+                    <li>Se analizaron los **resultados experimentales** presentados en el artículo, comparando la eficacia del enfoque propuesto con métodos tradicionales.</li>
+                    <li>En el contexto de un sistema web backend, esto se relaciona con la **calidad de los datos** que se manejan, especialmente en aplicaciones que procesan grandes volúmenes de información (como logs de red para seguridad) y cómo la falta de datos o datos inconsistentes pueden impactar la lógica de negocio y la fiabilidad del sistema.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="resultados">
+            <h2>Resultados <button class="toggle-button" data-target="resultados-content">+ Mostrar</button></h2>
+            <div class="content" id="resultados-content">
+                <p>Durante la **Semana 12**, el desarrollo del sistema web backend nos permitió aplicar y consolidar los conocimientos teóricos sobre la gestión de formularios, el uso eficiente de Django Admin, y la implementación de middleware y sesiones para manejar la interacción del usuario y la seguridad. Específicamente, los resultados clave incluyen:</p>
+                <ul>
+                    <li>**Funcionalidad de Formularios:** Se lograron implementar formularios eficientes para la entrada de datos de usuarios y para operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en el backend. La validación y sanitización de datos se aplicaron con éxito, asegurando la integridad y seguridad de la información. Esto es crucial para prevenir ataques como inyección SQL o scripting entre sitios (XSS).</li>
+                    <li>**Administración Robusta con Django Admin:** Se personalizó y extendió la interfaz de Django Admin para gestionar los modelos de la base de datos de manera intuitiva. Se agregaron filtros, búsquedas y acciones personalizadas, lo que facilitó la administración de los datos del sistema por parte de los administradores.</li>
+                    <li>**Manejo de Sesiones y Autenticación:** Se implementó un sistema de autenticación de usuarios que permite el registro, inicio de sesión y cierre de sesión. El manejo de sesiones se utilizó para mantener el estado del usuario a lo largo de su interacción con la aplicación, garantizando una experiencia de usuario fluida y segura.</li>
+                    <li>**Uso de Middleware:** Se comprendió cómo los middleware intervienen en el ciclo de vida de la solicitud/respuesta, lo que permitió considerar su uso para tareas como la gestión de permisos o el registro de actividad (logging).</li>
+                    <li>**Integración Teórico-Práctica:** El laboratorio de "Desarrollo de un sistema web backend" fue el pilar para integrar todos estos conceptos. Se construyó una aplicación funcional donde cada componente teórico encontró su aplicación práctica, desde la creación de modelos hasta la interacción con la base de datos y la implementación de la lógica de negocio.</li>
+                    <li>**Análisis de Datos Faltantes (Artículo):** La exposición sobre el manejo de datos faltantes en sistemas de detección de intrusiones reforzó la importancia del preprocesamiento de datos en cualquier sistema que dependa de grandes volúmenes de información. Esto subraya cómo la calidad de los datos impacta directamente en la fiabilidad de las decisiones tomadas por el sistema backend.</li>
+                </ul>
+                <p>En resumen, la semana culminó con una comprensión integral de los componentes fundamentales para construir un sistema web backend seguro, eficiente y escalable, con un enfoque particular en la gestión de datos y la interacción del usuario.</p>
+            </div>
+        </section>
+
+        <section id="reflexion">
+            <h2>Reflexión Metacognitiva <button class="toggle-button" data-target="reflexion-content">+ Mostrar</button></h2>
+            <div class="content" id="reflexion-content">
+                <h3>¿Qué aprendí?</h3>
+                <p>Durante esta Semana 12, mi aprendizaje se centró en la **arquitectura y los componentes esenciales para desarrollar un sistema web backend robusto con Django**. Profundicé en cómo los **formularios** son el puente fundamental para la interacción usuario-sistema, no solo para la recolección de datos sino para su **validación y sanitización**, un aspecto crítico para la seguridad y la integridad de la información. Comprendí que un formulario no es solo un conjunto de campos HTML, sino una potente herramienta de Django que abstrae gran parte de la complejidad de manejo de datos. La personalización y el registro de modelos en **Django Admin** me mostraron cómo una herramienta "out-of-the-box" puede ser increíblemente poderosa y adaptable, facilitando la gestión de la base de datos sin necesidad de desarrollar interfaces de administración desde cero.</p>
+                <p>El estudio de **Middleware y Sesiones** me reveló el "detrás de escenas" de cómo se gestiona el estado y la seguridad en una aplicación web. Entendí que el middleware es como un "filtro" que procesa las solicitudes antes de que lleguen a la vista y las respuestas antes de que salgan, permitiendo implementar lógicas transversales como la **autenticación y autorización**. El manejo de sesiones clarificó cómo una aplicación "recuerda" a un usuario entre diferentes peticiones HTTP, algo fundamental para experiencias de usuario continuas y personalizadas. La conexión de estos temas con el **Laboratorio 12**, donde desarrollamos un sistema web backend, fue clave. Ver cómo cada concepto se aplicaba directamente en la construcción de una aplicación funcional, desde la definición de modelos hasta la interacción con la base de datos y la implementación de la lógica de negocio, solidificó mi comprensión.</p>
+                <p>Además, la exposición sobre el manejo de datos faltantes en sistemas de detección de intrusiones me abrió los ojos a la **importancia de la calidad de los datos** en cualquier sistema. Aunque no directamente de backend, me hizo reflexionar sobre cómo los datos que procesamos en el backend deben ser confiables y cómo la falta de información puede comprometer la fiabilidad de las decisiones del sistema. Esto me llevó a considerar la necesidad de estrategias de preprocesamiento robustas incluso antes de que los datos lleguen a la lógica de negocio.</p>
+
+                <h3>¿Cómo aprendí?</h3>
+                <p>Mi proceso de aprendizaje fue una combinación efectiva de **teoría y práctica intensiva**. Inicialmente, asimilé los conceptos a través de **material de lectura y explicaciones en clase**, lo que me proporcionó la base teórica sobre formularios, Django Admin, middleware y sesiones. Sin embargo, la mayor parte de mi comprensión provino de la **aplicación práctica de estos conocimientos en el Laboratorio 12**. Codificar un sistema web backend desde cero, enfrentando desafíos y resolviendo problemas en el camino, fue la forma más efectiva de solidificar lo aprendido.</p>
+                <p>La **experimentación directa** con el código, depurando errores y viendo cómo cada línea de código contribuía a la funcionalidad general, fue fundamental. Utilicé la **documentación oficial de Django** de manera recurrente, lo que me permitió profundizar en los detalles y entender las mejores prácticas. Además, la **interacción con mis compañeros y el instructor** fue muy valiosa, ya sea para aclarar dudas, compartir soluciones o recibir retroalimentación sobre mi código. Discutir diferentes enfoques para un problema y ver cómo otros abordaban los mismos desafíos enriqueció mi perspectiva.</p>
+                <p>Finalmente, la **exposición del artículo** fue un complemento importante. Aunque era un tema tangencial al desarrollo backend puro, me obligó a pensar críticamente sobre la **calidad de los datos** y su impacto en sistemas complejos. Analizar la investigación, entender los problemas de los datos faltantes y las soluciones propuestas, me ayudó a conectar la teoría con aplicaciones del mundo real y a entender la relevancia de un buen preprocesamiento en cualquier sistema que gestione información.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Semana 12. Todos los derechos reservados.</p>
+    </footer>
+
+    <button id="scroll-to-top">⬆️</button>
+
+    <script>
+        /* --- JavaScript --- */
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('La página de la Semana 12 ha cargado completamente.');
+
+            // --- Funcionalidad de Expandir/Colapsar Secciones ---
+            const toggleButtons = document.querySelectorAll('.toggle-button');
+
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.target;
+                    const contentDiv = document.getElementById(targetId);
+
+                    if (contentDiv) {
+                        contentDiv.classList.toggle('expanded');
+                        if (contentDiv.classList.contains('expanded')) {
+                            button.textContent = '- Ocultar';
+                        } else {
+                            button.textContent = '+ Mostrar';
+                        }
+                    }
+                });
+            });
+
+            // --- Funcionalidad de Resaltar Párrafos y Listas al hacer clic ---
+            const clickableElements = document.querySelectorAll('p, li');
+
+            clickableElements.forEach(element => {
+                element.addEventListener('click', () => {
+                    // Si el elemento ya está resaltado, quita el resaltado
+                    if (element.classList.contains('highlighted')) {
+                        element.classList.remove('highlighted');
+                    } else {
+                        // Opcional: Desresaltar otros elementos si solo quieres uno resaltado a la vez
+                        // document.querySelectorAll('.highlighted').forEach(el => el.classList.remove('highlighted'));
+                        element.classList.add('highlighted');
+                    }
+                });
+            });
+
+            // --- Funcionalidad de Botón "Scroll to Top" ---
+            const scrollToTopButton = document.getElementById('scroll-to-top');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 200) { // Muestra el botón después de 200px de scroll
+                    scrollToTopButton.classList.add('show');
+                } else {
+                    scrollToTopButton.classList.remove('show');
+                }
+            });
+
+            scrollToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // Desplazamiento suave
+                });
+            });
+        });
+    </script>
+</body>
+</html>

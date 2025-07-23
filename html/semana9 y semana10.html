@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno Semana 9 Y Semana 10 - Tecnología Web Backend - Sistema de auntenticación JWT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            color: #666;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+        }
+        
+        .section h3 {
+            color: #34495e;
+            margin: 20px 0 10px 0;
+            font-size: 1.3em;
+        }
+        
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+            color: #555;
+        }
+        
+        .definition-box {
+            background: linear-gradient(135deg, #f8f9ff, #e8ecff);
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .definition-box h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .token-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .token-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .token-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .token-card h4 {
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .lab-results {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .lab-results h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .links-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .link-card {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .link-card:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .link-card a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: bold;
+        }
+        
+        .reflection {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+        }
+        
+        .reflection h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .reflection-question {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .reflection-question h4 {
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .fundamentals-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .fundamental-item {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 10px;
+            padding: 15px;
+            border-left: 5px solid #f39c12;
+        }
+        
+        .fundamental-item h5 {
+            color: #d35400;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .links-container {
+                flex-direction: column;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header fade-in">
+            <h1>📖 Cuaderno de Aprendizaje</h1>
+            <p>Semana 9 y semana10: Tecnología Web Backend y Sistemas de Autenticación JWT</p>
+        </header>
+
+        <section class="section fade-in">
+            <h2>🎯 Temas Aprendidos</h2>
+            
+            <div class="definition-box">
+                <h4>🏗️ Arquitectura de Aplicaciones Web</h4>
+                <p>La arquitectura de aplicaciones web es la estructura fundamental que define cómo se organizan y comunican los diferentes componentes de una aplicación web. Incluye la separación entre frontend (lado del cliente) y backend (lado del servidor), estableciendo patrones de comunicación, flujo de datos y responsabilidades específicas para cada capa.</p>
+            </div>
+
+            <div class="definition-box">
+                <h4>🖥️ Servidores Web y Server Side</h4>
+                <p>Los servidores web son programas que procesan solicitudes HTTP y devuelven respuestas a los clientes. El funcionamiento del server side implica el procesamiento de lógica de negocio, acceso a bases de datos, autenticación, y generación de contenido dinámico antes de enviarlo al navegador del usuario.</p>
+            </div>
+
+            <div class="definition-box">
+                <h4>💻 Lenguajes y Frameworks Backend</h4>
+                <p>Los lenguajes backend como PHP y Java (JSP) permiten crear aplicaciones dinámicas del lado del servidor. Los frameworks proporcionan estructura, patrones y herramientas predefinidas que aceleran el desarrollo y mantienen la consistencia en el código.</p>
+            </div>
+
+            <h3>🔧 Desarrollo de Aplicaciones Específicas:</h3>
+            <p><strong>PHP:</strong> Lenguaje interpretado especialmente diseñado para desarrollo web, que se ejecuta en el servidor y genera HTML dinámico.</p>
+            <p><strong>JSP (JavaServer Pages):</strong> Tecnología que permite incrustar código Java en páginas HTML para crear contenido web dinámico, compilándose en servlets para su ejecución.</p>
+        </section>
+
+        <section class="section fade-in">
+            <h2>🔐 Sistema de Autenticación Basada en Tokens</h2>
+            
+            <p>La autenticación basada en tokens es un método de verificación de identidad que permite a los usuarios acceder a sistemas sin necesidad de proporcionar credenciales constantemente. Se basa en la emisión de un token—un conjunto de datos cifrados—que valida la identidad del usuario por un período determinado.</p>
+
+            <h3>🔑 Fundamentos Clave:</h3>
+            <div class="fundamentals-list">
+                <div class="fundamental-item">
+                    <h5>1. Generación del Token</h5>
+                    <p>Cuando un usuario inicia sesión con sus credenciales, el sistema autentica su identidad y genera un token único.</p>
+                </div>
+                <div class="fundamental-item">
+                    <h5>2. Uso del Token</h5>
+                    <p>En lugar de enviar credenciales en cada solicitud, el usuario incluye el token en las peticiones al servidor.</p>
+                </div>
+                <div class="fundamental-item">
+                    <h5>3. Validación del Token</h5>
+                    <p>El servidor verifica que el token sea válido y esté vigente antes de conceder el acceso.</p>
+                </div>
+                <div class="fundamental-item">
+                    <h5>4. Expiración y Renovación</h5>
+                    <p>Los tokens suelen tener una duración limitada. Cuando expiran, el usuario debe obtener uno nuevo.</p>
+                </div>
+                <div class="fundamental-item">
+                    <h5>5. Seguridad</h5>
+                    <p>Generalmente, los tokens están cifrados y firmados digitalmente para evitar manipulación o falsificación.</p>
+                </div>
+            </div>
+
+            <h3>🏷️ Tipos de Tokens:</h3>
+            <div class="token-types">
+                <div class="token-card">
+                    <h4>JWT (JSON Web Token)</h4>
+                    <p>Basado en JSON, se usa ampliamente en aplicaciones web y móviles por su simplicidad y portabilidad.</p>
+                </div>
+                <div class="token-card">
+                    <h4>OAuth Tokens</h4>
+                    <p>Usados en autenticación delegada para acceder a APIs sin compartir credenciales directas.</p>
+                </div>
+                <div class="token-card">
+                    <h4>SAML Tokens</h4>
+                    <p>Comunes en entornos empresariales y federación de identidades para sistemas corporativos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section fade-in">
+            <h2>🧪 Laboratorio 9: Resultados</h2>
+            
+            <div class="lab-results">
+                <h3>📋 Ejercicio Realizado</h3>
+                <p>Se desarrolló un sistema completo de autenticación basada en tokens que incluye:</p>
+                <p>✅ Backend con manejo de autenticación y generación de tokens</p>
+                <p>✅ Frontend con interfaz de usuario para login y registro</p>
+                <p>✅ Implementación de seguridad y validación de tokens</p>
+                <p>✅ Despliegue exitoso en plataforma de hosting gratuita</p>
+                
+                <h3>🔗 Enlaces del Proyecto</h3>
+                <div class="links-container">
+                    <div class="link-card">
+                        <h4>🌐 Aplicación Desplegada</h4>
+                        <a href="https://autenticacion-fcde8.web.app/login" target="_blank">Ver Aplicación en Vivo</a>
+                    </div>
+                    <div class="link-card">
+                        <h4>⚙️ Backend Repository</h4>
+                        <a href="https://github.com/SamiraPaniaguaRojas/sistema-autenticacion-backend" target="_blank">Código Backend</a>
+                    </div>
+                    <div class="link-card">
+                        <h4>🎨 Frontend Repository</h4>
+                        <a href="https://github.com/SamiraPaniaguaRojas/sistema-autenticacion" target="_blank">Código Frontend</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section fade-in">
+            <div class="reflection">
+                <h2>🤔 Reflexión Metacognitiva</h2>
+                
+                <div class="reflection-question">
+                    <h4>💡 ¿Qué aprendí?</h4>
+                    <p>Durante esta semana adquirí conocimientos fundamentales sobre el desarrollo backend, comprendiendo la importancia de la arquitectura de aplicaciones web y cómo los servidores procesan las solicitudes del lado del servidor. Aprendí las diferencias entre tecnologías como PHP y JSP, y sus aplicaciones específicas en el desarrollo web.</p>
+                    
+                    <p>El aspecto más significativo fue comprender el sistema de autenticación basada en tokens, no solo desde la teoría sino implementándolo prácticamente. Entendí cómo los tokens JWT proporcionan una alternativa segura y eficiente a la autenticación tradicional basada en sesiones, y cómo implementar toda la cadena de seguridad desde la generación hasta la validación de tokens.</p>
+                    
+                    <p>También desarrollé habilidades prácticas en el despliegue de aplicaciones web, integrando frontend y backend, y publicando el sistema completo en una plataforma de hosting.</p>
+                </div>
+                
+                <div class="reflection-question">
+                    <h4>🎓 ¿Cómo aprendí?</h4>
+                    <p>Mi proceso de aprendizaje fue principalmente práctico y experimental. Comencé estudiando los conceptos teóricos de arquitecturas web y sistemas de autenticación, pero el verdadero entendimiento llegó a través de la implementación práctica.</p>
+                    
+                    <p>Utilicé un enfoque de aprendizaje basado en proyectos, donde cada concepto teórico se reforzó mediante su aplicación directa en el desarrollo del sistema de autenticación. La experimentación con diferentes tecnologías (PHP, JSP) me permitió comparar enfoques y entender sus fortalezas específicas.</p>
+                    
+                    <p>El proceso de debugging y resolución de problemas durante el desarrollo me ayudó a profundizar mi comprensión de cómo funcionan los sistemas backend. Además, el despliegue de la aplicación me enseñó sobre aspectos prácticos de la producción que no se ven en el desarrollo local.</p>
+                    
+                    <p>La documentación de todo el proceso en este cuaderno me ayudó a consolidar los conocimientos y reflexionar sobre lo aprendido, convirtiendo la experiencia práctica en aprendizaje consciente y transferible.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Animaciones de entrada suaves
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeIn 0.8s ease-in forwards';
+                    }
+                });
+            });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+        
+        // Efecto hover en las tarjetas de enlaces
+        document.querySelectorAll('.link-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

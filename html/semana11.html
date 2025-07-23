@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cuaderno Semana 11 - Portafolio Interactivo</title>
+  
+  <!-- Bootstrap para diseño responsivo -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <!-- Google Fonts para mejor tipografía -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #a8edea, #fed6e3);
+      min-height: 100vh;
+      padding: 20px;
+      color: #333;
+    }
+    h1, h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      animation: fadeInDown 1s ease forwards;
+    }
+    section {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      animation: fadeInUp 1s ease forwards;
+    }
+    /* Animaciones */
+    @keyframes fadeInDown {
+      0% {opacity: 0; transform: translateY(-30px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+    @keyframes fadeInUp {
+      0% {opacity: 0; transform: translateY(30px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Código estilo para mostrar fragmentos */
+    pre {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      max-height: 300px;
+    }
+
+    /* Animación pulsante botón */
+    .btn-primary {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 8px #0d6efd;
+      }
+      50% {
+        box-shadow: 0 0 20px #0d6efd;
+      }
+    }
+
+    /* Animar sección al hacer scroll (simple) */
+    section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Cuaderno Semana 11 - Temas Aprendidos y Laboratorio</h1>
+
+  <section id="temas-aprendidos" class="visible">
+    <h2>Temas Aprendidos</h2>
+    <p><strong>JSP/JAKARTA:</strong> Plataforma para construir aplicaciones web dinámicas en Java.</p>
+    <p><strong>SPRING / SPRING DATA:</strong> Framework para simplificar desarrollo backend y acceso a datos.</p>
+    <p><strong>Hibernate / JPA:</strong> Tecnologías para mapear objetos Java a bases de datos relacionales.</p>
+    <p>Se aprendió el procedimiento para crear aplicaciones empresariales robustas, usando APIs RESTful y gestión de datos.</p>
+  </section>
+
+  <section id="ejercicios-laboratorio" class="visible">
+    <h2>Ejercicios de Laboratorio - Semana 11</h2>
+    <p>Desarrollamos una API RESTful para la gestión de docentes con Jakarta EE y Spring. La aplicación permite operaciones CRUD y otras funcionalidades específicas:</p>
+    <ul>
+      <li>Entidad Docente con atributos: idDocente, nomDocente, dirDocente, ciuDocente, emailDocente, fecNacimiento, tiempoServicio.</li>
+      <li>Operaciones CRUD (Crear, Leer, Actualizar, Eliminar).</li>
+      <li>Filtros por ciudad, años de servicio, edad promedio.</li>
+      <li>Validaciones: email, fecha de nacimiento, tiempo de servicio.</li>
+      <li>Documentación con Swagger y manejo global de excepciones.</li>
+      <li>Paginación en listado de docentes.</li>
+    </ul>
+  </section>
+
+  <section id="resultados" class="visible">
+    <h2>Resultados</h2>
+    <p>La API fue probada con Postman, donde se comprobó la correcta gestión de docentes y las funcionalidades adicionales. Se lograron las validaciones y se implementó la paginación.</p>
+    <button class="btn btn-primary" onclick="mostrarCodigo()">Mostrar código ejemplo</button>
+
+ <pre id="codigo" style="display:none;">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;parent&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+        &lt;version&gt;3.3.0&lt;/version&gt;
+        &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+    &lt;/parent&gt;
+    &lt;groupId&gt;com.gomez&lt;/groupId&gt;
+    &lt;artifactId&gt;apiAcademico&lt;/artifactId&gt;
+    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+    &lt;name&gt;apiAcademico&lt;/name&gt;
+    &lt;description&gt;Demo project for Spring Boot&lt;/description&gt;
+    &lt;url/&gt;
+    &lt;licenses&gt;
+        &lt;license/&gt;
+    &lt;/licenses&gt;
+    &lt;developers&gt;A
+        &lt;developer/&gt;
+    &lt;/developers&gt;
+    &lt;scm&gt;
+        &lt;connection/&gt;
+        &lt;developerConnection/&gt;
+        &lt;tag/&gt;
+        &lt;url/&gt;
+    &lt;/scm&gt;
+    &lt;properties&gt;
+        &lt;java.version&gt;21&lt;/java.version&gt;
+    &lt;/properties&gt;
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-j&lt;/artifactId&gt;
+            &lt;scope&gt;runtime&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.springdoc&lt;/groupId&gt;
+            &lt;artifactId&gt;springdoc-openapi-starter-webmvc-ui&lt;/artifactId&gt;
+            &lt;version&gt;2.2.0&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+
+&lt;/project&gt;
+  </pre>
+</section>
+
+  <section id="reflexion" class="visible">
+    <h2>Reflexión Metacognitiva</h2>
+    <p><strong>¿Qué aprendí?</strong> Comprendí cómo construir APIs RESTful robustas con Jakarta EE y Spring, integrar validaciones, paginación y documentación, lo que facilita la gestión eficiente de datos en aplicaciones reales.</p>
+    <p><strong>¿Cómo aprendí?</strong> A través de la práctica directa desarrollando el ejercicio, analizando documentación oficial y testeando con Postman, consolidando los conceptos teóricos con la experiencia práctica.</p>
+  </section>
+
+  <section id="mostrar-ejercicio" class="visible">
+    <h2>Ejercicio: Código y Carpeta</h2>
+    <p>Para mostrar el código o la carpeta del ejercicio completo en la web, tienes varias opciones:</p>
+    <ol>
+      <li>Si la carpeta es pequeña, puedes subir los archivos relevantes a un repositorio GitHub y enlazarlo aquí.</li>
+      <li>Si quieres mostrar fragmentos de código en la página, usa etiquetas <code>&lt;pre&gt;</code> o librerías como PrismJS para resaltado.</li>
+      <li>Para proyectos más grandes, lo ideal es documentar con README y compartir enlaces para descarga o repositorio.</li>
+    </ol>
+    <p>Ejemplo: <a href="https://github.com/SamiraPaniaguaRojas/Portafolio" target="_blank">Repositorio GitHub Ejercicio Semana 10</a></p>
+  </section>
+
+<script>
+  // Mostrar / ocultar código
+  function mostrarCodigo() {
+    const codeBlock = document.getElementById('codigo');
+    if(codeBlock.style.display === 'none') {
+      codeBlock.style.display = 'block';
+    } else {
+      codeBlock.style.display = 'none';
+    }
+  }
+
+  // Animar secciones al hacer scroll (simple)
+  window.addEventListener('scroll', () => {
+    document.querySelectorAll('section').forEach(section => {
+      const rect = section.getBoundingClientRect();
+      if(rect.top < window.innerHeight - 100) {
+        section.classList.add('visible');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

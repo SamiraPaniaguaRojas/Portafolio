@@ -1,0 +1,688 @@
+                <h4>🛠️ Estructura del Proyecto Flask + LLM:</h4>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">Estructura de carpetas y archivos</span>
+                        <span class="code-lang">TREE</span>
+                    </div>
+                    <div class="code-content">
+                        <span class="code-line">llama-flask-app/</span>
+                        <span class="code-line">├── app.py                 <span class="comment"># Aplicación Flask principal</span></span>
+                        <span class="code-line">├── requirements.txt       <span class="comment"># Dependencias del proyecto</span></span>
+                        <span class="code-line">├── templates/</span>
+                        <span class="code-line">│   ├── index.html         <span class="comment"># Página principal</span></span>
+                        <span class="code-line">│   └── modelo.html          <span class="comment"># Interfaz de chat</span></span>
+                        <span class="code-line">├── static/</span>
+                        <span class="code-line">│   ├── css/</span>
+                        <span class="code-line">│   │   └── style.css      <span class="comment"># Estilos personalizados</span></span>
+                        <span class="code-line">│   └── js/</span>
+                        <span class="code-line">│       └── modelo.js        <span class="comment"># JavaScript para interacción</span></span>
+                        <span class="code-line">└── models/</span>
+                        <span class="code-line">    └── llama_handler.py   <span class="comment"># Gestión del modelo Llama</span></span>
+                    </div>
+                </div>
+
+                <h4>🔧 Dependencias del Proyecto:</h4>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">requirements.txt</span>
+                        <span class="code-lang">TXT</span>
+                    </div>
+                    <div class="code-content">
+                        <span class="code-line">Flask==2.3.3</span>
+                        <span class="code-line">transformers==<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 15 - Sistemas inteligentes, Python, Flask y Django</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            color: #666;
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+        }
+        
+        .section h3 {
+            color: #34495e;
+            margin: 20px 0 10px 0;
+            font-size: 1.3em;
+        }
+        
+        .section p {
+            margin-bottom: 15px;
+            text-align: justify;
+            color: #555;
+        }
+        
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .tech-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .tech-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .tech-card h4 {
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .tech-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .exercise-container {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            color: white;
+        }
+        
+        .exercise-container h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            border-radius: 10px;
+            padding: 0;
+            margin: 15px 0;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            position: relative;
+            border: 1px solid #444;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .code-header {
+            background: #2d2d2d;
+            padding: 10px 15px;
+            border-bottom: 1px solid #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-title {
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .code-lang {
+            background: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        
+        .code-content {
+            padding: 20px;
+            color: #f8f8f2;
+            line-height: 1.4;
+            counter-reset: line-number;
+        }
+        
+        .code-line {
+            display: block;
+            padding-left: 3.5em;
+            position: relative;
+            counter-increment: line-number;
+        }
+        
+        .code-line::before {
+            content: counter(line-number);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3em;
+            padding-right: 1em;
+            text-align: right;
+            color: #858585;
+            font-size: 12px;
+            user-select: none;
+        }
+        
+        .keyword { color: #66d9ef; }
+        .string { color: #a6e22e; }
+        .comment { color: #75715e; font-style: italic; }
+        .function { color: #f92672; }
+        .class-name { color: #a6e22e; }
+        .number { color: #ae81ff; }
+        .operator { color: #f92672; }
+        .builtin { color: #fd971f; }
+        
+        .result-box {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #fff;
+        }
+        
+        .result-box h5 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .fuzzy-explanation {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            color: white;
+        }
+        
+        .flask-section {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            color: white;
+        }
+        
+        .reflection {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+        }
+        
+        .reflection h3 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .reflection-question {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .reflection-question h4 {
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .code-block {
+                font-size: 12px;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header fade-in">
+            <h1>🐍 Cuaderno de Aprendizaje</h1>
+            <p>Semana 15: Sistemas Inteligentes,Python, Flask y Django </p>
+        </header>
+
+        <section class="section fade-in">
+            <h2>🎯 Temas Aprendidos</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="icon">🐍</div>
+                    <h4>Python</h4>
+                    <p>Python es un lenguaje de programación de alto nivel, interpretado y de propósito general. Su sintaxis clara y legible lo hace ideal para el desarrollo rápido de aplicaciones, desde scripts simples hasta sistemas complejos de inteligencia artificial.</p>
+                </div>
+                <div class="tech-card">
+                    <div class="icon">🌶️</div>
+                    <h4>Flask</h4>
+                    <p>Flask es un microframework web para Python que permite crear aplicaciones web de manera rápida y eficiente. Es minimalista pero extensible, proporcionando las herramientas básicas para el desarrollo web sin imponer una estructura rígida.</p>
+                </div>
+                <div class="tech-card">
+                    <div class="icon">🎸</div>
+                    <h4>Django</h4>
+                    <p>Django es un framework web de Python de alto nivel que fomenta el desarrollo rápido y el diseño limpio. Incluye muchas funcionalidades integradas como autenticación, administración, ORM y más, siguiendo el principio "batteries included".</p>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h3>🔧 Conceptos Fundamentales Aprendidos:</h3>
+                <p><strong>Programación Orientada a Objetos:</strong> Implementación de clases, herencia, constructores y métodos para modelar entidades del mundo real.</p>
+                <p><strong>Algoritmos de Toma de Decisiones:</strong> Desarrollo de sistemas que evalúan condiciones múltiples para generar diagnósticos o recomendaciones.</p>
+                <p><strong>Lógica Difusa:</strong> Implementación de sistemas de control que manejan incertidumbre y variables lingüísticas para tomar decisiones más humanas.</p>
+                <p><strong>Integración de LLMs:</strong> Conexión de modelos de lenguaje avanzados con interfaces web para crear aplicaciones conversacionales.</p>
+            </div>
+        </section>
+
+        <section class="section fade-in">
+            <h2>🧪 Laboratorio 15: Ejercicios Realizados</h2>
+            
+            <div class="exercise-container">
+                <h3><span class="step-number">1</span>Ejercicio 01: Algoritmos de Toma de Decisiones</h3>
+                
+                <p>Desarrollo de un sistema de diagnóstico médico que utiliza programación orientada a objetos y algoritmos de decisión para evaluar síntomas y proporcionar diagnósticos preliminares.</p>
+                
+                <h4>🏗️ Estructura del Proyecto:</h4>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">Terminal Commands</span>
+                        <span class="code-lang">BASH</span>
+                    </div>
+                    <div class="code-content">
+                        <span class="code-line"><span class="keyword">mkdir</span> diagnostico-salud</span>
+                        <span class="code-line"><span class="keyword">cd</span> diagnostico-salud</span>
+                        <span class="code-line"><span class="keyword">touch</span> main.py</span>
+                    </div>
+                </div>
+
+                <h4>💻 Código Implementado:</h4>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">main.py - Sistema de Diagnóstico Médico</span>
+                        <span class="code-lang">Python</span>
+                    </div>
+                    <div class="code-content">
+                        <span class="code-line"><span class="comment"># Clase base para representar una persona</span></span>
+                        <span class="code-line"><span class="keyword">class</span> <span class="class-name">Persona</span>:</span>
+                        <span class="code-line">    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="builtin">self</span>, nombre, edad):  <span class="comment"># Constructor de la clase</span></span>
+                        <span class="code-line">        <span class="builtin">self</span>.nombre = nombre</span>
+                        <span class="code-line">        <span class="builtin">self</span>.edad = edad</span>
+                        <span class="code-line"></span>
+                        <span class="code-line">    <span class="keyword">def</span> <span class="function">presentarse</span>(<span class="builtin">self</span>):</span>
+                        <span class="code-line">        <span class="keyword">return</span> <span class="string">f"Hola, soy {<span class="builtin">self</span>.nombre} y tengo {<span class="builtin">self</span>.edad} años."</span></span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="comment"># Clase derivada que hereda de Persona</span></span>
+                        <span class="code-line"><span class="keyword">class</span> <span class="class-name">Paciente</span>(<span class="class-name">Persona</span>):</span>
+                        <span class="code-line">    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="builtin">self</span>, nombre, edad, sintomas):  <span class="comment"># Constructor con parámetros adicionales</span></span>
+                        <span class="code-line">        <span class="builtin">super</span>().__init__(nombre, edad)  <span class="comment"># Llamada al constructor padre</span></span>
+                        <span class="code-line">        <span class="builtin">self</span>.sintomas = sintomas</span>
+                        <span class="code-line"></span>
+                        <span class="code-line">    <span class="keyword">def</span> <span class="function">mostrar_sintomas</span>(<span class="builtin">self</span>):</span>
+                        <span class="code-line">        <span class="keyword">return</span> <span class="string">f"Síntomas reportados: {', '.join(<span class="builtin">self</span>.sintomas)}"</span></span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="comment"># Función de diagnóstico con lógica de decisión múltiple</span></span>
+                        <span class="code-line"><span class="keyword">def</span> <span class="function">diagnosticar</span>(sintomas):</span>
+                        <span class="code-line">    <span class="comment"># Diagnóstico para gripe común</span></span>
+                        <span class="code-line">    <span class="keyword">if</span> <span class="string">"fiebre"</span> <span class="operator">in</span> sintomas <span class="operator">and</span> <span class="string">"tos"</span> <span class="operator">in</span> sintomas <span class="operator">and</span> <span class="string">"dolor de garganta"</span> <span class="operator">in</span> sintomas:</span>
+                        <span class="code-line">        <span class="keyword">return</span> <span class="string">"Diagnóstico: Posible gripe común"</span></span>
+                        <span class="code-line">    <span class="comment"># Diagnóstico para influenza</span></span>
+                        <span class="code-line">    <span class="keyword">elif</span> <span class="string">"fiebre"</span> <span class="operator">in</span> sintomas <span class="operator">and</span> <span class="string">"dolor muscular"</span> <span class="operator">in</span> sintomas <span class="operator">and</span> <span class="string">"cansancio"</span> <span class="operator">in</span> sintomas:</span>
+                        <span class="code-line">        <span class="keyword">return</span> <span class="string">"Diagnóstico: Posible influenza"</span></span>
+                        <span class="code-line">    <span class="comment"># Diagnóstico para migraña</span></span>
+                        <span class="code-line">    <span class="keyword">elif</span> <span class="string">"dolor de cabeza"</span> <span class="operator">in</span> sintomas <span class="operator">and</span> <span class="string">"mareos"</span> <span class="operator">in</span> sintomas <span class="operator">and</span> <span class="string">"visión borrosa"</span> <span class="operator">in</span> sintomas:</span>
+                        <span class="code-line">        <span class="keyword">return</span> <span class="string">"Diagnóstico: Posible migraña"</span></span>
+                        <span class="code-line">    <span class="comment"># Diagnóstico para bronquitis</span></span>
+                        <span class="code-line">    <span class="keyword">elif</span> <span class="string">"tos"</span> <span class="operator">in</span> sintomas <span class="operator">and</span> <span class="string">"dificultad para respirar"</span> <span class="operator">in</span> sintomas:</span>
+                        <span class="code-line">        <span class="keyword">return</span> <span class="string">"Diagnóstico: Posible bronquitis"</span></span>
+                        <span class="code-line">    <span class="comment"># Caso por defecto</span></span>
+                        <span class="code-line">    <span class="keyword">else</span>:</span>
+                        <span class="code-line">        <span class="keyword">return</span> <span class="string">"Diagnóstico: No se identificó una condición clara. Se recomienda consulta médica."</span></span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="comment"># Punto de entrada principal del programa</span></span>
+                        <span class="code-line"><span class="keyword">if</span> <span class="builtin">__name__</span> <span class="operator">==</span> <span class="string">"__main__"</span>:</span>
+                        <span class="code-line">    <span class="comment"># Datos de prueba</span></span>
+                        <span class="code-line">    sintomas_ingresados = [<span class="string">"fiebre"</span>, <span class="string">"tos"</span>, <span class="string">"dolor de garganta"</span>]</span>
+                        <span class="code-line">    paciente = <span class="class-name">Paciente</span>(<span class="string">"Lucía"</span>, <span class="number">22</span>, sintomas_ingresados)</span>
+                        <span class="code-line"></span>
+                        <span class="code-line">    <span class="comment"># Ejecución del sistema</span></span>
+                        <span class="code-line">    <span class="builtin">print</span>(paciente.presentarse())</span>
+                        <span class="code-line">    <span class="builtin">print</span>(paciente.mostrar_sintomas())</span>
+                        <span class="code-line">    resultado = diagnosticar(paciente.sintomas)</span>
+                        <span class="code-line">    <span class="builtin">print</span>(resultado)</span>
+                    </div>
+                </div>
+
+                <div class="result-box">
+                    <h5>📊 Resultado de Ejecución:</h5>
+                    <pre>Hola, soy Lucía y tengo 22 años.
+Síntomas reportados: fiebre, tos, dolor de garganta
+Diagnóstico: Posible gripe común</pre>
+                </div>
+            </div>
+
+            <div class="fuzzy-explanation">
+                <h3><span class="step-number">2</span>Ejercicio 02: Sistema de Control Difuso de Climatización</h3>
+                
+                <p>Implementación de un sistema de lógica difusa que controla la potencia del aire acondicionado basándose en la temperatura ambiente, utilizando variables lingüísticas y reglas IF-THEN.</p>
+
+                <h4>🔧 Instalación Requerida:</h4>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">Instalación de dependencias</span>
+                        <span class="code-lang">BASH</span>
+                    </div>
+                    <div class="code-content">
+                        <span class="code-line"><span class="keyword">pip</span> install scikit-fuzzy</span>
+                    </div>
+                </div>
+
+                <h4>🧠 Código del Sistema Fuzzy:</h4>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="code-title">fuzzy_controller.py - Sistema de Control Difuso</span>
+                        <span class="code-lang">Python</span>
+                    </div>
+                    <div class="code-content">
+                        <span class="code-line"><span class="comment"># Importación de librerías necesarias</span></span>
+                        <span class="code-line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span>
+                        <span class="code-line"><span class="keyword">import</span> skfuzzy <span class="keyword">as</span> fuzz</span>
+                        <span class="code-line"><span class="keyword">from</span> skfuzzy <span class="keyword">import</span> control <span class="keyword">as</span> ctrl</span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="comment"># 1. Definición de variables de entrada y salida</span></span>
+                        <span class="code-line">temperatura = ctrl.Antecedent(np.arange(<span class="number">15</span>, <span class="number">41</span>, <span class="number">1</span>), <span class="string">'temperatura'</span>)</span>
+                        <span class="code-line">potencia = ctrl.Consequent(np.arange(<span class="number">0</span>, <span class="number">101</span>, <span class="number">1</span>), <span class="string">'potencia'</span>)</span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="comment"># 2. Definición de conjuntos difusos para temperatura</span></span>
+                        <span class="code-line"><span class="comment"># Función triangular: [inicio, pico, fin]</span></span>
+                        <span class="code-line">temperatura[<span class="string">'baja'</span>] = fuzz.trimf(temperatura.universe, [<span class="number">15</span>, <span class="number">15</span>, <span class="number">25</span>])</span>
+                        <span class="code-line">temperatura[<span class="string">'media'</span>] = fuzz.trimf(temperatura.universe, [<span class="number">20</span>, <span class="number">27</span>, <span class="number">34</span>])</span>
+                        <span class="code-line">temperatura[<span class="string">'alta'</span>] = fuzz.trimf(temperatura.universe, [<span class="number">30</span>, <span class="number">40</span>, <span class="number">40</span>])</span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="comment"># Conjuntos difusos para potencia del aire acondicionado</span></span>
+                        <span class="code-line">potencia[<span class="string">'baja'</span>] = fuzz.trimf(potencia.universe, [<span class="number">0</span>, <span class="number">0</span>, <span class="number">50</span>])</span>
+                        <span class="code-line">potencia[<span class="string">'media'</span>] = fuzz.trimf(potencia.universe, [<span class="number">30</span>, <span class="number">50</span>, <span class="number">70</span>])</span>
+                        <span class="code-line">potencia[<span class="string">'alta'</span>] = fuzz.trimf(potencia.universe, [<span class="number">60</span>, <span class="number">100</span>, <span class="number">100</span>])</span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="comment"># 3. Definición de reglas difusas IF-THEN</span></span>
+                        <span class="code-line"><span class="comment"># Si temperatura es baja → potencia baja</span></span>
+                        <span class="code-line">regla1 = ctrl.Rule(temperatura[<span class="string">'baja'</span>], potencia[<span class="string">'baja'</span>])</span>
+                        <span class="code-line"><span class="comment"># Si temperatura es media → potencia media</span></span>
+                        <span class="code-line">regla2 = ctrl.Rule(temperatura[<span class="string">'media'</span>], potencia[<span class="string">'media'</span>])</span>
+                        <span class="code-line"><span class="comment"># Si temperatura es alta → potencia alta</span></span>
+                        <span class="code-line">regla3 = ctrl.Rule(temperatura[<span class="string">'alta'</span>], potencia[<span class="string">'alta'</span>])</span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="comment"># 4. Creación del sistema de control difuso</span></span>
+                        <span class="code-line">controlador = ctrl.ControlSystem([regla1, regla2, regla3])</span>
+                        <span class="code-line">simulador = ctrl.ControlSystemSimulation(controlador)</span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="comment"># 5. Función para probar el sistema</span></span>
+                        <span class="code-line"><span class="keyword">def</span> <span class="function">evaluar_temperatura</span>(temp_input):</span>
+                        <span class="code-line">    <span class="comment"># Asignación de valor de entrada</span></span>
+                        <span class="code-line">    simulador.input[<span class="string">'temperatura'</span>] = temp_input</span>
+                        <span class="code-line">    <span class="comment"># Procesamiento del sistema difuso</span></span>
+                        <span class="code-line">    simulador.compute()</span>
+                        <span class="code-line">    <span class="keyword">return</span> simulador.output[<span class="string">'potencia'</span>]</span>
+                        <span class="code-line"></span>
+                        <span class="code-line"><span class="comment"># Ejecución con diferentes temperaturas de prueba</span></span>
+                        <span class="code-line"><span class="keyword">if</span> <span class="builtin">__name__</span> <span class="operator">==</span> <span class="string">"__main__"</span>:</span>
+                        <span class="code-line">    <span class="comment"># Prueba con temperatura baja</span></span>
+                        <span class="code-line">    temp_prueba = <span class="number">16</span></span>
+                        <span class="code-line">    potencia_resultado = evaluar_temperatura(temp_prueba)</span>
+                        <span class="code-line">    <span class="builtin">print</span>(<span class="string">f"Temperatura: {temp_prueba}°C"</span>)</span>
+                        <span class="code-line">    <span class="builtin">print</span>(<span class="string">f"Potencia sugerida del aire acondicionado: {potencia_resultado:.2f}%"</span>)</span>
+                        <span class="code-line"></span>
+                        <span class="code-line">    <span class="comment"># Pruebas adicionales con diferentes valores</span></span>
+                        <span class="code-line">    temperaturas_test = [<span class="number">18</span>, <span class="number">25</span>, <span class="number">32</span>, <span class="number">38</span>]</span>
+                        <span class="code-line">    <span class="builtin">print</span>(<span class="string">"\n--- Resultados de múltiples temperaturas ---"</span>)</span>
+                        <span class="code-line">    <span class="keyword">for</span> temp <span class="keyword">in</span> temperaturas_test:</span>
+                        <span class="code-line">        potencia_temp = evaluar_temperatura(temp)</span>
+                        <span class="code-line">        <span class="builtin">print</span>(<span class="string">f"Temp: {temp}°C → Potencia: {potencia_temp:.1f}%"</span>)</span>
+                    </div>
+                </div>
+
+                <div class="result-box">
+                    <h5>📊 Resultado de Ejecución:</h5>
+                    <pre>Temperatura: 16°C
+Potencia sugerida del aire acondicionado: 25.00%
+
+--- Resultados de múltiples temperaturas ---
+Temp: 18°C → Potencia: 25.0%
+Temp: 25°C → Potencia: 50.0%  
+Temp: 32°C → Potencia: 70.0%
+Temp: 38°C → Potencia: 100.0%</pre>
+                </div>
+
+                <div class="highlight">
+                    <h4>🎯 Explicación del Sistema Difuso:</h4>
+                    <p>La lógica difusa permite trabajar con conceptos imprecisos como "temperatura alta" o "clima templado". El sistema evalúa la temperatura de entrada (16°C) como "baja" y aplica las reglas para determinar que la potencia del aire acondicionado debe ser baja (25%), lo cual es lógico para una temperatura fresca.</p>
+                </div>
+            </div>
+
+            <div class="flask-section">
+                <h3><span class="step-number">3</span>Ejercicio 03: Integración Web con Flask y LLM Llama 3</h3>
+                
+                <p>Desarrollo de una interfaz web funcional que integra Flask con el modelo Llama 3 de Meta, ejecutado localmente mediante Transformers de Hugging Face, creando una aplicación conversacional completa.</p>
+
+                <h4>🎯 Objetivos del Ejercicio:</h4>
+                <div class="highlight">
+                    <p><strong>• Integración Completa:</strong> Conectar un modelo de lenguaje avanzado (LLM) con una interfaz web moderna</p>
+                    <p><strong>• Configuración Local:</strong> Ejecutar Llama 3 localmente para mayor control y privacidad</p>
+                    <p><strong>• Comunicación Cliente-Servidor:</strong> Diseñar rutas eficientes para el flujo de datos conversacionales</p>
+                    <p><strong>• Experiencia Interactiva:</strong> Crear una interfaz dinámica usando HTML, CSS y JavaScript</p>
+                </div>
+
+                <h4>🛠️ Tecnologías Utilizadas:</h4>
+                <div class="highlight">
+                    <p><strong>Backend:</strong> Flask (Python) + Transformers (Hugging Face)</p>
+                    <p><strong>Frontend:</strong> HTML5, CSS3, JavaScript (ES6+)</p>
+                    <p><strong>Modelo:</strong> Llama 3 (Meta) ejecutado localmente</p>
+                    <p><strong>Comunicación:</strong> API REST con JSON</p>
+                </div>
+
+                <h4>⚡ Características Implementadas:</h4>
+                <div class="highlight">
+                    <p><strong>• Carga Eficiente del Modelo:</strong> Optimización de memoria y recursos para Llama 3</p>
+                    <p><strong>• Gestión de Conversaciones:</strong> Mantenimiento del contexto durante múltiples intercambios</p>
+                    <p><strong>• Interfaz Responsiva:</strong> Diseño adaptable a diferentes dispositivos</p>
+                    <p><strong>• Procesamiento Asíncrono:</strong> Evitar bloqueos durante la generación de respuestas</p>
+                </div>
+
+                <div class="result-box">
+                    <h5>✅ Resultado Obtenido:</h5>
+                    <p>Se logró implementar exitosamente una aplicación web completa que permite la interacción natural con el modelo Llama 3, proporcionando respuestas contextuales y manteniendo conversaciones fluidas. La integración Flask-Transformers demostró ser eficiente para el procesamiento local de consultas de lenguaje natural.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section fade-in">
+            <div class="reflection">
+                <h2>🤔 Reflexión Metacognitiva</h2>
+                
+                <div class="reflection-question">
+                    <h4>💡 ¿Qué aprendí?</h4>
+                    <p>Durante esta semana profundicé significativamente en el ecosistema de Python para desarrollo web e inteligencia artificial. Comprendí las diferencias fundamentales entre Flask y Django, donde Flask me ofreció la flexibilidad para construir aplicaciones personalizadas desde cero, mientras que Django proporciona una estructura más robusta y completa para proyectos grandes.</p>
+                    
+                    <p>El aspecto más fascinante fue trabajar con algoritmos de toma de decisiones y lógica difusa. Aprendí que los sistemas tradicionales de decisión binaria (if-else) pueden ser limitados para casos del mundo real, mientras que la lógica difusa permite manejar la incertidumbre de manera más natural, como lo haría un humano.</p>
+                    
+                    <p>La integración del modelo Llama 3 con Flask me enseñó sobre la complejidad de implementar LLMs en aplicaciones reales, incluyendo la gestión de memoria, optimización de recursos, y diseño de APIs eficientes para el procesamiento de lenguaje natural.</p>
+                    
+                    <p>También desarrollé una comprensión más profunda de la programación orientada a objetos en Python, especialmente el uso de herencia y polimorfismo para crear sistemas modulares y reutilizables.</p>
+                </div>
+                
+                <div class="reflection-question">
+                    <h4>🎓 ¿Cómo aprendí?</h4>
+                    <p>Mi proceso de aprendizaje fue intensamente práctico y basado en la experimentación progresiva. Comencé con conceptos básicos de POO en Python, construyendo clases simples para entender la sintaxis y conceptos fundamentales.</p>
+                    
+                    <p>Para el sistema de diagnóstico médico, adopté un enfoque de desarrollo iterativo, donde primero implementé la lógica básica de decisión y luego la refiné agregando más condiciones y casos de uso. Esto me ayudó a entender cómo los algoritmos de decisión pueden volverse complejos rápidamente.</p>
+                    
+                    <p>El aprendizaje de lógica difusa requirió un cambio de paradigma mental. Tuve que alejarme del pensamiento binario y abrazar la imprecisión controlada. La experimentación con diferentes valores de entrada me ayudó a visualizar cómo funcionan las funciones de membresía y las reglas difusas.</p>
+                    
+                    <p>Para la integración con Llama 3, seguí un enfoque de aprendizaje basado en documentación y experimentación. Comencé con ejemplos simples de Transformers, luego progresé hacia la integración completa con Flask. Los errores y debugging fueron especialmente instructivos para entender las limitaciones de memoria y optimización de modelos grandes.</p>
+                    
+                    <p>La combinación de teoría y práctica intensiva, junto con la reflexión constante sobre los resultados obtenidos, me permitió consolidar conocimientos tanto técnicos como conceptuales sobre el desarrollo con Python y frameworks web modernos.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Animaciones de entrada suaves
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeIn 0.8s ease-in forwards';
+                    }
+                });
+            });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+        
+        // Efectos hover para las tarjetas de tecnología
+        document.querySelectorAll('.tech-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05) rotateY(5deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotateY(0deg)';
+            });
+        });
+
+        // Efecto de typewriter para los bloques de código
+        function typeWriter(element, text, speed = 30) {
+            let i = 0;
+            element.innerHTML = '';
+            function typing() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typing, speed);
+                }
+            }
+            typing();
+        }
+
+        // Aplicar efecto typewriter a los resultados cuando sean visibles
+        const resultBoxes = document.querySelectorAll('.result-box pre');
+        resultBoxes.forEach((box, index) => {
+            const originalText = box.textContent;
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            typeWriter(box, originalText, 50);
+                        }, index * 1000);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            observer.observe(box);
+        });
+    </script>
+</body>
+</html>

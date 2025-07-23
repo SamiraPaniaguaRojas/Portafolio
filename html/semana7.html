@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Laboratorio 07 - Uso de Hooks en React</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background: #f0f4f8;
+      color: #222;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #007acc;
+      text-align: center;
+    }
+    section {
+      margin-bottom: 2.5rem;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    pre {
+      background: #222;
+      color: #eee;
+      padding: 1rem;
+      border-radius: 5px;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .resultado {
+      background: #e1f5fe;
+      border-left: 5px solid #0288d1;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 4px;
+    }
+    /* Estilos para demo hooks */
+    .counter {
+      font-size: 2rem;
+      margin: 1rem 0;
+      color: #1565c0;
+      text-align: center;
+    }
+    button {
+      background: #0288d1;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #0277bd;
+    }
+    img {
+      max-width: 300px;
+      margin-top: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 3px 7px rgba(0,0,0,0.15);
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .accordion {
+      margin: 1rem 0;
+    }
+    .accordion-item {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-bottom: 0.5rem;
+      overflow: hidden;
+    }
+    .accordion-header {
+      background: #f1f1f1;
+      padding: 0.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .accordion-content {
+      padding: 0.5rem;
+      display: none;
+      background: #fff;
+    }
+    .accordion-content.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Informe de Laboratorio 06 - Uso de Hooks en React</h1>
+
+  <section>
+    <h2>1. Temas aprendidos (definiciones y procedimiento)</h2>
+    <div class="accordion">
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <strong>useState:</strong>
+          <span>+</span>
+        </div>
+        <div class="accordion-content">
+          Hook que permite crear y manejar estados locales dentro de un componente funcional. Usado para variables que cambian y afectan la interfaz.
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <strong>useEffect:</strong>
+          <span>+</span>
+        </div>
+        <div class="accordion-content">
+          Permite ejecutar efectos secundarios (como peticiones, timers o actualizar el DOM) cuando el componente se monta o cambian ciertas dependencias.
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <strong>useContext:</strong>
+          <span>+</span>
+        </div>
+        <div class="accordion-content">
+          Para compartir datos globales sin tener que pasar props en múltiples niveles (contexto React).
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <strong>useRef:</strong>
+          <span>+</span>
+        </div>
+        <div class="accordion-content">
+          Referencias persistentes que no causan re-render cuando cambian, útil para manipular elementos DOM o guardar valores mutables.
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <strong>useReducer:</strong>
+          <span>+</span>
+        </div>
+        <div class="accordion-content">
+          Alternativa a useState para estados complejos con lógica más clara usando reductores (como Redux).
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <strong>useCallback y useMemo:</strong>
+          <span>+</span>
+        </div>
+        <div class="accordion-content">
+          Optimizan el rendimiento evitando recrear funciones o cálculos complejos innecesariamente.
+        </div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <strong>Hooks personalizados:</strong>
+          <span>+</span>
+        </div>
+        <div class="accordion-content">
+          Funciones que encapsulan lógica de hooks para reutilizar en varios componentes.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Ejercicios prácticos - Resultados interactivos</h2>
+
+    <p><strong>Ejercicio 1:</strong> Contador simple usando <code>useState</code></p>
+
+    <div class="resultado">
+      <p><strong>Contador interactivo:</strong></p>
+      <div id="counterApp">
+        <button onclick="decrement()">-</button>
+        <span class="counter" id="counterValue">0</span>
+        <button onclick="increment()">+</button>
+      </div>
+    </div>
+
+    <pre><code>// Código React equivalente (simulado)
+import React, { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() => setCount(count - 1)}&gt;-&lt;/button&gt;
+      &lt;span&gt;{count}&lt;/span&gt;
+      &lt;button onClick={() => setCount(count + 1)}&gt;+&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}
+    </code></pre>
+
+    <p><strong>Ejercicio 2:</strong> Cambio de título dinámico con <code>useEffect</code></p>
+    <p>Cuando cambias el contador, el título del navegador se actualiza.</p>
+
+    <img src="../img/react.jpeg" alt="React Logo" />
+
+  </section>
+
+  <section>
+    <h2>3. Reflexión: ¿Qué aprendí? ¿Cómo lo aprendí?</h2>
+    <p>
+      Aprendí a manejar el estado y efectos secundarios en componentes funcionales con React Hooks, haciendo la UI más simple y reactiva. Entendí la importancia de separar lógica y presentación, optimizar rendimiento con <code>useCallback</code> y <code>useMemo</code>, y cómo los hooks personalizados mejoran la reutilización.
+    </p>
+    <p>
+      Aprendí principalmente mediante la práctica con pequeños proyectos, lectura de la documentación oficial y análisis de ejemplos reales en repositorios de GitHub.
+    </p>
+  </section>
+
+  <script>
+    // Simulación del hook useState para el contador
+    let count = 0;
+    const counterValue = document.getElementById('counterValue');
+
+    function render() {
+      counterValue.textContent = count;
+      // Actualiza el título del documento simulando useEffect
+      document.title = `Contador: ${count}`;
+    }
+
+    function increment() {
+      count++;
+      render();
+    }
+
+    function decrement() {
+      count--;
+      render();
+    }
+
+    render();
+
+    // Función para el acordeón
+    function toggleAccordion(header) {
+      const content = header.nextElementSibling;
+      const isActive = content.classList.toggle('active');
+      header.querySelector('span').textContent = isActive ? '-' : '+';
+    }
+  </script>
+
+</body>
+</html>
+
