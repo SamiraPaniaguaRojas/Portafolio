@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos Personales</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h2 { color: #333; margin-bottom: 10px; }
+        .welcome { color: #667eea; font-size: 18px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; color: #555; font-weight: bold; }
+        input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 5px; font-size: 16px; transition: border-color 0.3s; }
+        input:focus { outline: none; border-color: #667eea; }
+        .btn { width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-bottom: 10px; transition: background 0.3s; }
+        .btn:hover { background: #5a67d8; }
+        .btn-logout { background: #dc3545; }
+        .btn-logout:hover { background: #c82333; }
+        .mensaje { margin-top: 15px; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Datos Personales</h2>
+            <div class="welcome" id="welcomeMsg">Cargando...</div>
+        </div>
+
+        <form id="datosForm">
+            <div class="form-group">
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" required>
+            </div>
+            <div class="form-group">
+                <label for="ciudad">Ciudad:</label>
+                <input type="text" id="ciudad" required>
+            </div>
+            <button type="submit" class="btn">Guardar Datos</button>
+            <button type="button" class="btn btn-logout" onclick="logout()">Cerrar Sesión</button>
+        </form>
+
+        <div id="mensaje" class="mensaje" style="display: none;"></div>
+    </div>
+
+    <script>
+        function mostrarMensaje(texto, tipo) {
+            const mensaje = document.getElementById('mensaje');
+            mensaje.textContent = texto;
+            mensaje.className = `mensaje ${tipo}`;
+            mensaje.style.display = 'block';
+            setTimeout(() => {
+                mensaje.style.display = 'none';
+            }, 3000);
+        }
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = '/';
+        }
+
+        // Verificar si hay token al cargar la página
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/';
+        }
+
+        // Cargar datos del usuario
+        async function cargarDatosUsuario() {
+            try {
+                const response = await fetch('/obtener_usuario', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('welcomeMsg').textContent = `Bienvenido, ${data.usuario}`;
+                    document.getElementById('nombre').value = data.nombre || '';
+                    document.getElementById('direccion').value = data.direccion || '';
+                    document.getElementById('ciudad').value = data.ciudad || '';
+                } else {
+                    localStorage.removeItem('token');
+                    window.location.href = '/';
+                }
+            } catch (error) {
+                localStorage.removeItem('token');
+                window.location.href = '/';
+            }
+        }
+
+        // Cargar datos al iniciar
+        cargarDatosUsuario();
+
+        document.getElementById('datosForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value;
+            const direccion = document.getElementById('direccion').value;
+            const ciudad = document.getElementById('ciudad').value;
+
+            try {
+                const response = await fetch('/guardar_datos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ nombre, direccion, ciudad })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    mostrarMensaje('Datos guardados correctamente', 'success');
+                } else {
+                    if (response.status === 401) {
+                        localStorage.removeItem('token');
+                        window.location.href = '/';
+                    } else {
+                        mostrarMensaje(data.mensaje, 'error');
+                    }
+                }
+            } catch (error) {
+                mostrarMensaje('Error de conexión', 'error');
+            }
+        });
+    </script>
+</body>
+</html>
